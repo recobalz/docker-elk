@@ -3,9 +3,9 @@ version: '2'
 services:
 
   elasticsearch:
-    build: elasticsearch/
+    image: elasticsearch
     volumes:
-      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /docker-elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -15,10 +15,10 @@ services:
       - elk
 
   logstash:
-    build: logstash/
+    image: logstash
     volumes:
-      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
-      - ./logstash/pipeline:/usr/share/logstash/pipeline
+      - /docker-elk/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - /docker-elk/logstash/pipeline:/usr/share/logstash/pipeline
     ports:
       - "5000:5000"
     environment:
@@ -29,9 +29,9 @@ services:
       - elasticsearch
 
   kibana:
-    build: kibana/
+    image: kibana
     volumes:
-      - ./kibana/config/:/usr/share/kibana/config
+      - /docker-elk/kibana/config/:/usr/share/kibana/config
     ports:
       - "5601:5601"
     networks:
